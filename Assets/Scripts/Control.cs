@@ -11,7 +11,7 @@ public class Control : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("LevelMenu");
     }
     public void Quit()
     {
@@ -19,10 +19,14 @@ public class Control : MonoBehaviour
     }
     public void LVL1()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Level1");
+    }
+    public void LVL2()
+    {
+        SceneManager.LoadScene("Level2");
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
     }
 }

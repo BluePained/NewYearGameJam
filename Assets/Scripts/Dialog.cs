@@ -8,7 +8,7 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public string[] lines;
     public float textSpeed;
-    private int index;
+    public int index;
 
     void Start()
     {
@@ -20,7 +20,13 @@ public class Dialog : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (textComponent.text == lines[index])
             NextLine();
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index];
+            }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -45,6 +51,7 @@ public class Dialog : MonoBehaviour
 
     void NextLine()
     {
+        
         if (index < lines.Length - 1)
         {
             index++;
@@ -60,5 +67,9 @@ public class Dialog : MonoBehaviour
     public void Disable()
     {
         gameObject.SetActive(false);
+    }
+    public void Enable()
+    {
+        gameObject.SetActive(true);
     }
 }

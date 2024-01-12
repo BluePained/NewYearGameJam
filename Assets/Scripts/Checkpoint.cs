@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    
-    void Update()
-    {
-        
+        Destroy(gameObject);
     }
 }

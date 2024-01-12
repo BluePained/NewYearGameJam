@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
     GameObject[] celestials;
     GameObject rocket;
-    [SerializeField] GameObject LevelClear;
 
     public float G = 0f;
     public float thrustForce = 10f;
@@ -77,17 +77,16 @@ public class Rocket : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         G = 1f;
-        Debug.Log("In trigger");
-        if (collision.tag == "Checkpoint")
-        {
-            LevelClear.SetActive(true);
-            Debug.Log("Chekpoint");
-        }
+        //Debug.Log("In trigger");
         
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log(collision.transform.name);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         G = 0f;
-        Debug.Log("trigger Exit");
+        //Debug.Log("trigger Exit");
     }
 }
