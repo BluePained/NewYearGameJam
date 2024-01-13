@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
     GameObject[] celestials;
     GameObject rocket;
 
-    public float G = 10f;
+    public float G = 0f;
     public float thrustForce = 10f;
 
     void Start()
@@ -27,7 +28,7 @@ public class Rocket : MonoBehaviour
     {
         foreach (GameObject planet in celestials)
         {
-            if(Vector3.Distance(rocket.transform.position,planet.transform.position) - planet.transform.localScale.x < 1f)
+            if(Vector3.Distance(rocket.transform.position,planet.transform.position) - planet.transform.localScale.x < 0.01f)
             {
                 float m1 = planet.GetComponent<Rigidbody2D>().mass;
                 float m2 = rocket.GetComponent<Rigidbody2D>().mass;
@@ -40,32 +41,52 @@ public class Rocket : MonoBehaviour
 
     void movement()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
-            rocket.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * thrustForce);
+            transform.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * thrustForce);
+            transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        else
+            transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
+
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             rocket.GetComponent<Rigidbody2D>().AddRelativeForce(-Vector2.up * thrustForce);
+            transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else
+            transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
+
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            rocket.GetComponent<Rigidbody2D>().AddTorque(0.01f);
+            rocket.GetComponent<Rigidbody2D>().AddTorque(0.05f);
+            transform.GetChild(3).GetComponent<SpriteRenderer>().enabled = true;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        else
+            transform.GetChild(3).GetComponent<SpriteRenderer>().enabled = false;
+
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            rocket.GetComponent<Rigidbody2D>().AddTorque(-0.01f);
+            rocket.GetComponent<Rigidbody2D>().AddTorque(-0.05f);
+            transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = true;
         }
+        else
+            transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         G = 1f;
-        Debug.Log("In trigger");
+        //Debug.Log("In trigger");
+        
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log(collision.transform.name);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         G = 0f;
-        Debug.Log("trigger Exit");
+        //Debug.Log("trigger Exit");
     }
 }
