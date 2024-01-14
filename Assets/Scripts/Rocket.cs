@@ -8,6 +8,7 @@ public class Rocket : MonoBehaviour
     GameObject[] celestials;
     GameObject rocket;
 
+
     public float G = 0f;
     public float thrustForce = 10f;
 
